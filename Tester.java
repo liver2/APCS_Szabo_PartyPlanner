@@ -42,6 +42,15 @@ public class Tester
 			peopleStringSeparated.get(3).add(arrPeople[2]);
 			peopleStringSeparated.get(4).add(arrPeople[3]);
 		}
-		System.out.println(peopleStringSeparated.get(1).get(1));
+		
+		ArrayList<Person> unregistered = new ArrayList<Person>();
+		
+		for(int i = 0; i < peopleString.size(); i++)
+		{
+			unregistered.add(new Person(Integer.parseInt(peopleStringSeparated.get(1).get(i)),
+											  peopleStringSeparated.get(2).get(i),
+											  peopleStringSeparated.get(3).get(i),
+										Integer.parseInt(peopleStringSeparated.get(4).get(i))));
+		}
 	}
 }
