@@ -7,8 +7,11 @@ public class Tester
 {
 	public static void main(String[] args) 
 	{
+		System.out.println("Welcome!");
+		
 		ArrayList<String> peopleString = new ArrayList<String>();
 		ArrayList<ArrayList<String>> peopleStringSeparated = new ArrayList<ArrayList<String>>();
+		Scanner scanInput = new Scanner(System.in);
 			
 		try
 		{
@@ -19,7 +22,6 @@ public class Tester
 			while (scan.hasNextLine())
 			{
 				peopleString.add(scan.nextLine());
-				System.out.println(peopleString.get(i));
 				i++;
 			}
 		}
@@ -51,6 +53,50 @@ public class Tester
 											  peopleStringSeparated.get(2).get(i),
 											  peopleStringSeparated.get(3).get(i),
 										Integer.parseInt(peopleStringSeparated.get(4).get(i))));
+		}
+		
+		Party ihrpsConference = new Party(100,10);
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Person>[] table = new ArrayList[ihrpsConference.getTables()];
+		
+		for (int i = 0; i < ihrpsConference.getTables(); i++)
+		{
+			table[i] = new ArrayList<Person>();
+		}
+		
+		ihrpsConference.arrangeEmployeesAtTables(table, unregistered);
+		ihrpsConference.unregisteredError(unregistered);
+		
+		while(true)
+		{
+			System.out.println("Please select an option from the menu.");
+			System.out.println("1. Register Guest");
+			System.out.println("2. Print roster by table number");
+			System.out.println("3. Print roster by company number");
+			System.out.println("4. Search Guest");
+			System.out.println("------");
+			
+			int input;
+			try
+			{
+				do
+				{
+					input = scanInput.nextInt();
+					
+					if (input < 1 || input > 4)
+					{
+						System.out.println("Invalid input.");
+						System.out.println("------");
+					}
+				}
+				while (input < 1 || input > 4);
+			}
+			catch (InputMismatchException e)
+			{
+				System.out.println("Invalid input.");
+				System.out.println("------");
+			}
 		}
 	}
 }
