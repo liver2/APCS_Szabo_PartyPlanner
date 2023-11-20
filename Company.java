@@ -28,6 +28,6 @@ public class Company
 
     public String toString()
     {
-      return number + " - " + name;
+      return number + " - " + name + "\n";
     }
 }

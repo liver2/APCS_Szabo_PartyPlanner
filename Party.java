@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Party
 {
@@ -78,9 +80,135 @@ public class Party
 		
 		if (pplCount > this.maxPpl) return false;
 		else return true; 
+	}
 	
-	public void registerGuest(ArrayList<Person>[] tables)
+	public void registerGuest(ArrayList<Person>[] tables, ArrayList<Company> companies)
 	{
-		System.out.println("
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("------");
+		System.out.println("Please enter the first name of the guest.");
+		String f = scan.nextLine();
+		System.out.println("Please enter the last name of the guest.");
+		String l = scan.nextLine();
+		int input;
+		do			
+		{					
+			System.out.println("Please enter the number associated with this person's company:");
+			System.out.println(companies);
+			
+			input = 0;				
+			try
+			{
+				input = scan.nextInt();
+			}
+			catch (InputMismatchException e) {}
+				
+			System.out.println("------");	
+			
+			if (input < 1 || input > companies.size())
+			{
+				System.out.println("Invalid input.");
+				System.out.println("------");
+				scan.nextLine();
+			}
+		}
+		while (input < 1 || input > companies.size());
+		
+		int table = 0;
+		
+		for (int i = 0; i < this.tables; i++)
+		{
+			if (checkAttendeeNum(tables)) break;
+			if (checkTable(tables[i],input)) table = i;
+		}
+		
+		// Initialize person and add to table.
+		
+		if (table != 0) System.out.println("This guest has been registered at table " + table + ".");
+		else System.out.println("We could not register this guest.");
+	}
+	
+	public void rosterByTable(ArrayList<Person>[] tables)
+	{
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("------");
+		int input;
+		do
+		{
+			System.out.println("Please enter the table number you would like to look up.");
+			input = 0;				
+			try
+			{
+				input = scan.nextInt();
+			}
+			catch (InputMismatchException e) {}
+				
+			System.out.println("------");	
+			
+			if (input < 1 || input > this.tables)
+			{
+				System.out.println("Invalid input.");
+				System.out.println("------");
+				scan.nextLine();
+			}
+		} 
+		while (input < 1 || input > this.tables);
+		
+		System.out.println("Here is the roster for table " + input + ".");
+		
+		for(Person p : tables[input-1])
+		{
+			System.out.println(p.toString());
+		}
+	}
+	
+	public void rosterByCompany(ArrayList<Person>[] tables, ArrayList<Company> companies, ArrayList<Person> unregistered)
+	{
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("------");
+		int input;
+		do
+		{
+			System.out.println("Please enter the company number you would like to look up.");
+			System.out.println(companies);
+			input = 0;				
+			try
+			{
+				input = scan.nextInt();
+			}
+			catch (InputMismatchException e) {}
+				
+			System.out.println("------");	
+			
+			if (input < 1 || input > companies.size())
+			{
+				System.out.println("Invalid input.");
+				System.out.println("------");
+				scan.nextLine();
+			}
+		} 
+		while (input < 1 || input > companies.size());
+		
+		for (Person p : unregistered)
+		{
+			if (p.getCompanyNumber() == input) System.out.println(p.toString());
+		}
+		
+		for (int i = 0; i < this.tables; i++)
+		{
+			for (Person p : tables[i])
+			{
+				if (p.getCompanyNumber() == input) System.out.println(p.toString());
+			}
+		}
+		System.out.println("------");
+	} 
+	
+	public void searchGuest(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
+	{
+		
 	}
 }
