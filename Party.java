@@ -81,8 +81,20 @@ public class Party
 		if (pplCount > this.maxPpl) return false;
 		else return true; 
 	}
+
+	public int maxId(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
+	{
+		int max = 0;
+		for (int i = 0; i < this.tables; i++) 
+		{
+			for (Person p : tables[i]) 
+			{
+				if (p.getId() > max) max = p.getId();
+			}
+		}
+	}
 	
-	public void registerGuest(ArrayList<Person>[] tables, ArrayList<Company> companies)
+	public void registerGuest(ArrayList<Person>[] tables, ArrayList<Person> unregistered, ArrayList<Company> companies)
 	{
 		Scanner scan = new Scanner(System.in);
 		
@@ -123,7 +135,7 @@ public class Party
 			if (checkTable(tables[i],input)) table = i;
 		}
 		
-		// Initialize person and add to table.
+		tables[table-1].add(new Person(maxId(tables,unregistered),f,l,input));
 		
 		if (table != 0) System.out.println("This guest has been registered at table " + table + ".");
 		else System.out.println("We could not register this guest.");
@@ -209,6 +221,33 @@ public class Party
 	
 	public void searchGuest(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
 	{
-		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Please enter the first name of the guest you would like to search for.");
+		String f = scan.nextLine();
+		System.out.println("Please enter the last name of the guest you would like to search for.");
+		String s = scan.nextLine();
+		boolean found = false;
+
+		for (int i = 0; i < this.tables; i++)
+		{
+			for (Person p : tables[i])
+			{
+				if (f.equals(p.getFirstName()) && s.equals(p.getLastName()) 
+				{
+					System.out.println(p.toString());
+					found = true;
+				}
+			}
+		}
+
+		for (Person p : unregistered) 
+		{
+			if (f.equals(p.getFirstName()) && s.equals(p.getLastName()) 
+			{
+				System.out.println(p.toString());
+				found = true;
+		}
+
+		if (found == false) System.out.println("Person not found.");
 	}
 }
