@@ -9,6 +9,11 @@ public class Tester
 	public static void main(String[] args) 
 	{
 		System.out.println("Welcome!");
+		System.out.println("If you haven't done so already, please load in the following files:");
+		System.out.println("partyguests.txt");
+		System.out.println("companies.txt");
+		System.out.println("------");
+		System.out.println("Beginning file import process.");
 		
 		ArrayList<String> peopleString = new ArrayList<String>();
 		ArrayList<String> companiesString = new ArrayList<String>();
@@ -30,7 +35,8 @@ public class Tester
 		}
 		catch (FileNotFoundException e) 
 		{
-			System.out.println("File not found");
+			System.out.println("File 'partyguests.txt' not found. Please place this file in the same directory as Tester.java.");
+			System.exit(1);
 		}
 		
 		try
@@ -50,7 +56,8 @@ public class Tester
 		}
 		catch (FileNotFoundException e)
 		{
-			System.out.println("File not found");
+			System.out.println("File 'companies.txt' not found. Please place this file in the same directory as Tester.java.");
+			System.exit(1);
 		}	
 		
 		for(int i = 0; i < peopleString.size(); i++)
