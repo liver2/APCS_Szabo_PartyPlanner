@@ -1,3 +1,11 @@
+/**
+ * Tester.java
+ * Author: Oliver Szabo
+ * Date: November 27, 2023, 11:59 PM
+ * Purpose: Contains the main method, reads .txt files to import data, 
+ * interprets data, creates a Party object, and hosts menu. 
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException; 
 import java.util.Scanner;
@@ -6,6 +14,13 @@ import java.util.InputMismatchException;
 
 public class Tester
 {
+	/*
+	 * Main method which hosts ArrayLists of Persons corresponding to
+	 * a party's unregistered and registered guests, an ArrayList of Companies
+	 * for the companies in attendance, a Party object and its methods, and
+	 * a menu from which the user can access the different methods of the
+	 * declared Party object.
+	 */
 	public static void main(String[] args) 
 	{
 		System.out.println("Welcome!");
@@ -23,6 +38,9 @@ public class Tester
 		
 		Scanner scanInput = new Scanner(System.in);
 			
+		/*
+		 * Loads data from "partyguests.txt" into an ArrayList<String>
+		 */
 		try
 		{
 			File partyGuests = new File("partyguests.txt");
@@ -35,10 +53,14 @@ public class Tester
 		}
 		catch (FileNotFoundException e) 
 		{
+			System.out.println("------");
 			System.out.println("File 'partyguests.txt' not found. Please place this file in the same directory as Tester.java.");
 			System.exit(1);
 		}
 		
+		/*
+		 * Loads data from "companies.txt" into an ArrayList<String>
+		 */
 		try
 		{
 			File companies = new File("companies.txt");
@@ -56,10 +78,15 @@ public class Tester
 		}
 		catch (FileNotFoundException e)
 		{
+			System.out.println("------");
 			System.out.println("File 'companies.txt' not found. Please place this file in the same directory as Tester.java.");
 			System.exit(1);
 		}	
 		
+		/*
+		 * Splits String of imported data into separate Strings for
+		 * data imported from "partyguests.txt"
+		 */
 		for(int i = 0; i < peopleString.size(); i++)
 		{
 			for(int j = 0; j < 5; j++)
@@ -75,6 +102,10 @@ public class Tester
 			peopleStringSeparated.get(4).add(arrPeople[3]);
 		}
 		
+		/*
+		 * Splits String of imported data into separate Strings for
+		 * data imported from "companies.txt"
+		 */
 		for(int i = 0; i < companiesString.size(); i++)
 		{
 			for(int j = 0; j < 2; j++)
@@ -87,6 +118,10 @@ public class Tester
 			companiesStringSeparated.get(1).add(arrPeople[1]);
 		}
 		
+		/*
+		 * Creates two ArrayLists that represent the unregistered guests
+		 * and the companies, importing data into new objects
+		 */
 		ArrayList<Person> unregistered = new ArrayList<Person>();
 		ArrayList<Company> companies = new ArrayList<Company>();
 		
@@ -104,6 +139,11 @@ public class Tester
 											companiesStringSeparated.get(1).get(i)));
 		}
 		
+		/*
+		 * Initializes a Party object and creates and initializes an
+		 * array of ArrayLists, representing the different tables at which
+		 * guests will sit
+		 */
 		Party ihrpsConference = new Party(100,10);
 		
 		@SuppressWarnings("unchecked")
@@ -114,9 +154,16 @@ public class Tester
 			table[i] = new ArrayList<Person>();
 		}
 		
+		/*
+		 * See Party.java for more information on these methods
+		 */
 		ihrpsConference.arrangeEmployeesAtTables(table, unregistered);
 		ihrpsConference.unregisteredError(unregistered);
 		
+		/*
+		 * Acts as the main "hub" for a user's actions when interacting
+		 * with the Party object declared earlier
+		 */
 		while(true)
 		{
 			int input;
@@ -145,6 +192,11 @@ public class Tester
 					System.out.println("------");
 					scanInput.nextLine();
 				}
+				
+				if (input == 1) ihrpsConference.registerGuest(table,unregistered,companies);
+				else if (input == 2) ihrpsConference.rosterByTable(table);
+				else if (input == 3) ihrpsConference.rosterByCompany(table,companies,unregistered);
+				else if (input == 4) ihrpsConference.searchGuest(table,unregistered);
 			}
 			while (input < 1 || input > 4);
 		}
