@@ -6,6 +6,10 @@
  * the method by which the list of companies is printed.
  */
 
+/*
+ * Purpose: Class that outlines the properties of a company and regulates
+ * the method by which the list of companies is printed.
+ */
 public class Company
 {
 	private int number; // A company's identifying number
@@ -13,6 +17,8 @@ public class Company
 
 	/*
 	 * Simple constructor
+	 * Args: int initNumber, String initName (initializing a new Company object's values)
+	 * Returns: Company (creates a new Company object)
 	 */
     public Company(int initNumber, String initName)
     {
@@ -22,6 +28,8 @@ public class Company
 
 	/*
 	 * Simple getter to return the company's identifying "number"
+	 * Args: None (none needed)
+	 * Returns: int (returns int value of number)
 	 */
     public int getNumber()
     {
@@ -30,6 +38,8 @@ public class Company
 
 	/*
 	 * Simple getter to return the name of the company
+	 * Args: None (none needed)
+	 * Returns: String (returns String value of name)
 	 */
     public String getName()
     {
@@ -38,6 +48,8 @@ public class Company
 
 	/*
 	 * Describes format by which the list of companies will be printed 
+	 * Args: None (none needed)
+	 * Returns: String (to be used with System.out.println)
 	 */
     public String toString()
     {

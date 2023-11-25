@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+/*
+ * Purpose: Class that outlines the guidelines for a party, arranges employees
+ * at tables, and runs methods that allow user interaction with the party, 
+ * its attendees, and its properties.
+ */
 public class Party
 {
 	private int maxPpl; // The maximum people a Party object will allow
@@ -19,6 +24,8 @@ public class Party
 	
 	/*
 	 * Constructor that calculates the number of people per table at a Party
+	 * Args: int initMaxPpl, int initTables (to set initial class variable values)
+	 * Returns: Party (creates a new Party object)
 	 */
 	public Party(int initMaxPpl, int initTables)
 	{
@@ -29,6 +36,8 @@ public class Party
 	
 	/*
 	 * Getter that returns the maximum number of people a Party allows
+	 * Args: None (none needed)
+	 * Returns: int (returns int value of maxPpl)
 	 */
 	public int getMaxPpl()
 	{
@@ -37,6 +46,8 @@ public class Party
 	
 	/*
 	 * Getter that returns the number of tables at a Party
+	 * Args: None (none needed)
+	 * Returns: int (returns int value of tables)
 	 */
 	public int getTables()
 	{
@@ -45,6 +56,8 @@ public class Party
 	
 	/*
 	 * Getter that returns the number of people per table, as calculated from above values
+	 * Args: None (none needed)
+	 * Returns: int (returns int value of pplPerTable)
 	 */
 	public int getPplPerTable()
 	{
@@ -55,6 +68,11 @@ public class Party
 	 * Method that automatically arranges guests at tables based on
 	 * established guidelines (10 people per table, no more than 1 
 	 * representative from each company per table, 100 max)
+	 * Args: ArrayList<Person>[] tables, ArrayList<Person> unregistered
+	 * 		 (This method needs to access both the ArrayList<Person>[] tables
+	 * 		  and the ArrayList<Person> unregistered to properly arrange 
+	 * 		  guests at their respective tables.)
+	 * Returns: void
 	 */
 	public void arrangeEmployeesAtTables(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
 	{	
@@ -65,7 +83,8 @@ public class Party
 				if (checkTable(tables[i],p.getCompanyNumber()))
 				{
 					tables[i].add(p);
-					p.setTableNumber(i+1);
+					p.setTableNumber(i+1); 
+					// Challenge: Unable to remove guests from "unregistered" due to ConcurrentModificationException
 					break;
 				}
 			}
@@ -75,6 +94,10 @@ public class Party
 	/*
 	 * Prints an error message for the user that notifies them of unregistered
 	 * guests
+	 * Args: ArrayList<Person> unregistered (This program solely needs to
+	 * 		 access the ArrayList of unregistered guests to determine what
+	 * 		 guests the user needs to be notified of.)
+	 * Returns: void
 	 */
 	public void unregisteredError(ArrayList<Person> unregistered)
 	{
@@ -90,13 +113,17 @@ public class Party
 	/*
 	 * Returns true if a guest with company number coNumber can be
 	 * placed at a certain table specified in the arguments.
+	 * Args: ArrayList<Person> table, int coNumber (This function checks
+	 * 		 only one specified table for guests of a certain company
+	 * 		 number.)
+	 * Returns: boolean
 	 */
 	public boolean checkTable(ArrayList<Person> table, int coNumber)
 	{
 		if (table.size() == 10) return false;
 		for (Person p : table)
 		{
-			if (p.getCompanyNumber() == coNumber)
+			if (p.getCompanyNumber() == coNumber) // Scans through for a matching company number at specified table
 			{
 				return false;
 			}
@@ -107,13 +134,20 @@ public class Party
 	/*
 	 * Checks that the number of people attending the Party does
 	 * not exceed the limits set by the user
+	 * Args: ArrayList<Person>[] tables (Since the number of people
+	 * 		 going to the party only includes those already seated,
+	 * 		 the program only accesses the ArrayList[] of tables
+	 * 		 to count whether a limit on the number of people attending
+	 * 		 has been hit.
+	 * Returns: boolean (true if the limit has not been reached, false
+	 * 			if the limit has been reached)
 	 */
 	public boolean checkAttendeeNum(ArrayList<Person>[] tables)
 	{
 		int pplCount = 0;
 		for (int i = 0; i < this.tables; i++)
 		{
-			pplCount += tables[i].size();
+			pplCount += tables[i].size(); // Aggregates # people at each table
 		}
 		
 		if (pplCount > this.maxPpl) return false;
@@ -123,9 +157,16 @@ public class Party
 	/*
 	 * Returns 1 more than the highest ID any person has so that new guests
 	 * can be registered with a new ID
+	 * Args: ArrayList<Person>[] tables, ArrayList<Person> unregistered
+	 * 		 (since setting a new ID involves sifting through all Persons
+	 * 		  to check for a unique ID available, this method accesses
+	 * 		  both.)
+	 * Returns: int (returns a new unique ID that is applied to a registrant.)
 	 */
 	public int maxId(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
 	{
+		// Challenge: New user IDs needed for new people. Solution: Scan for the highest
+		// one and use the next highest.
 		int max = 0;
 		for (int i = 0; i < this.tables; i++) 
 		{
@@ -147,7 +188,12 @@ public class Party
 	 * Allows user to register a guest by prompting them for details,
 	 * scanning the inputs to prompts and finding a table for the given
 	 * guest according to the inputs of the user and the guidelines
-	 * of the Party
+	 * of the Party.
+	 * Args: ArrayList<Person>[] tables, ArrayList<Person> unregistered, 
+	 * 		 ArrayList<Company> companies (all three ArrayLists should
+	 * 		 be accessed in order to place the person with a given
+	 * 		 company number into one of these ArrayLists.)
+	 * Returns: void
 	 */
 	public void registerGuest(ArrayList<Person>[] tables, ArrayList<Person> unregistered, ArrayList<Company> companies)
 	{
@@ -180,11 +226,11 @@ public class Party
 				scan.nextLine();
 			}
 		}
-		while (input < 1 || input > companies.size());
+		while (input < 1 || input > companies.size()); // User inputs a value for company to register
 		
-		int table = 0;
+		int table = -1;
 		
-		for (int i = 0; i < this.tables; i++)
+		for (int i = 0; i < this.tables; i++) // Scanning through for an appropriate table that fits the user's properties
 		{
 			if (!checkAttendeeNum(tables)) break;
 			if (checkTable(tables[i],input)) table = i;
@@ -203,6 +249,9 @@ public class Party
 	 * Prints a roster by the table number, detailing the name, ID, 
 	 * company No. of each person sitting at a table specified by the
 	 * user
+	 * Args: ArrayList<Person>[] tables (the table which is printed
+	 * 		 is determined through the user's input.)
+	 * Returns: void
 	 */
 	public void rosterByTable(ArrayList<Person>[] tables)
 	{
@@ -242,6 +291,10 @@ public class Party
 	/*
 	 * Prints a roster of guests by company number, detailing their
 	 * table number, name, ID, etc.
+	 * Args: ArrayList<Person>[] tables, ArrayList<Company> companies, 
+	 * 		 ArrayList<Person> unregistered (must search both ArrayList<Person>s
+	 * 		 to find Persons with matching company numbers.
+	 * Returns: void
 	 */
 	public void rosterByCompany(ArrayList<Person>[] tables, ArrayList<Company> companies, ArrayList<Person> unregistered)
 	{
@@ -273,7 +326,10 @@ public class Party
 		
 		for (Person p : unregistered)
 		{
-			if (p.getCompanyNumber() == input && p.getTableNumber() == 0) System.out.println(p.toString());
+			if (p.getCompanyNumber() == input && p.getTableNumber() == 0) System.out.println(p.toString()); 
+			// Problem area: Guests remained in "unregistered" ArrayList (process of moving them triggered a
+			// ConcurrentModificationException) so filter is used to ensure only truly unregistered guests are 
+			// printed.
 		}
 		
 		for (int i = 0; i < this.tables; i++)
@@ -288,6 +344,9 @@ public class Party
 	
 	/*
 	 * Prompts user for name to search for a specific guest in the database
+	 * Args: ArrayList<Person>[] tables, ArrayList<Person> unregistered
+	 * 		 (both are accessed in the searching process)
+	 * Returns: void
 	 */
 	public void searchGuest(ArrayList<Person>[] tables, ArrayList<Person> unregistered)
 	{
