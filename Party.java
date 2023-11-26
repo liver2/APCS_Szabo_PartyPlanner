@@ -83,7 +83,8 @@ public class Party
 				if (checkTable(tables[i],p.getCompanyNumber()))
 				{
 					tables[i].add(p);
-					p.setTableNumber(i+1); 
+					p.setTableNumber(i+1);
+					p.setPositionNumber(tables[i].size()); 
 					// Challenge: Unable to remove guests from "unregistered" due to ConcurrentModificationException
 					break;
 				}
@@ -238,8 +239,8 @@ public class Party
 		
 		Person registered = new Person(maxId(tables,unregistered),f,l,input);
 		registered.setTableNumber(table+1);
-		
 		tables[table].add(registered);
+		registered.setPositionNumber(tables[table].size());
 		
 		if (table != 0) System.out.println("This guest has been registered at table " + (table+1) + ".");
 		else System.out.println("We could not register this guest.");

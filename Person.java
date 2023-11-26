@@ -17,6 +17,7 @@ public class Person
     private String lastName;
     private int companyNumber;
     private int tableNumber;
+    private int positionNumber;
   
 	/*
 	 * Simple constructor that initially sets a Person's table number to
@@ -32,6 +33,7 @@ public class Person
       lastName = initLastName;
       companyNumber = initCompanyNumber;
       tableNumber = 0;
+      positionNumber = 0;
     }
 	
 	/*
@@ -83,6 +85,16 @@ public class Person
     {
       return tableNumber;
     }
+    
+    /*
+	 * Simple getter for a Person's positionNumber
+	 * Args: None (none needed)
+	 * Returns: int (returns the int value of a person's positionNumber)
+	 */
+    public int getPositionNumber()
+    {
+      return positionNumber;
+    }
 
 	/*
 	 * Simple setter for a Person's tableNumber
@@ -92,6 +104,16 @@ public class Person
     public void setTableNumber(int value)
     {
       tableNumber = value;
+    }
+    
+    /*
+	 * Simple setter for a Person's positionNumber
+	 * Args: int value (the new positionNumber value)
+	 * Returns: void
+	 */
+    public void setPositionNumber(int value)
+    {
+      positionNumber = value;
     }
   
 	/*
@@ -107,6 +129,7 @@ public class Person
       result += "Name: " + firstName + " " + lastName + "\n";
       result += "Company Number: " + companyNumber + "\n";
       result += "Table Number: " + tableNumber + "\n";
+      result += "Position Number: " + positionNumber + "\n";
       return result;
     }
 }
