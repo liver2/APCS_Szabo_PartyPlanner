@@ -1,12 +1,12 @@
-/**
- * Party.java
- * Author: Oliver Szabo
- * Date: November 27, 2023, 11:59 PM
+/*
  * Purpose: Class that outlines the properties of a company and regulates
  * the method by which the list of companies is printed.
  */
 
-/*
+/**
+ * Party.java
+ * Author: Oliver Szabo
+ * Date: November 27, 2023, 11:59 PM
  * Purpose: Class that outlines the properties of a company and regulates
  * the method by which the list of companies is printed.
  */

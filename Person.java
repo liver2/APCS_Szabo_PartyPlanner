@@ -1,12 +1,12 @@
-/**
- * Person.java
- * Author: Oliver Szabo
- * Date: November 27, 2023, 11:59 PM
+/*
  * Purpose: A class to store data about the attendees, and their properties
  * with regards to the party.
  */
 
-/*
+/**
+ * Person.java
+ * Author: Oliver Szabo
+ * Date: November 27, 2023, 11:59 PM
  * Purpose: A class to store data about the attendees, and their properties
  * with regards to the party.
  */

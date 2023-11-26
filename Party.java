@@ -1,17 +1,17 @@
-/**
- * Party.java
- * Author: Oliver Szabo
- * Date: November 27, 2023, 11:59 PM
- * Purpose: Class that outlines the guidelines for a party, arranges employees
- * at tables, and runs methods that allow user interaction with the party, 
- * its attendees, and its properties.
- */
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
 /*
+ * Purpose: Class that outlines the guidelines for a party, arranges employees
+ * at tables, and runs methods that allow user interaction with the party, 
+ * its attendees, and its properties.
+ */
+
+/**
+ * Party.java
+ * Author: Oliver Szabo
+ * Date: November 27, 2023, 11:59 PM
  * Purpose: Class that outlines the guidelines for a party, arranges employees
  * at tables, and runs methods that allow user interaction with the party, 
  * its attendees, and its properties.

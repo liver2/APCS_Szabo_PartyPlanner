@@ -1,11 +1,3 @@
-/**
- * Tester.java
- * Author: Oliver Szabo
- * Date: November 27, 2023, 11:59 PM
- * Purpose: Contains the main method, reads .txt files to import data, 
- * interprets data, creates a Party object, and hosts menu. 
- */
-
 import java.io.File;
 import java.io.FileNotFoundException; 
 import java.util.Scanner;
@@ -13,9 +5,17 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 /*
- * Purpose: Contains the main method, reads .txt files to import data, 
+ * Purpose: Contains the maian method, reads .txt files to import data, 
  * interprets data, creates a Party object, and hosts menu.
  */
+
+/**
+* Tester.java 
+* Author: Oliver Szabo
+* Date: November 27, 2023, 11:59 PM
+* Purpose: Contains the main method, reads .txt files to import data, 
+* interprets data, creates a Party object, and hosts menu. 
+*/
 public class Tester
 {
 	/*
